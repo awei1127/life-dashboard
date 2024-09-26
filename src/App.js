@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { X, CheckCircle, Settings } from 'lucide-react';
+import { X, CheckCircle, Settings, Info } from 'lucide-react';
 
 const Dashboard = () => {
   const [balance, setBalance] = useState(() => Number(localStorage.getItem('balance')) || 10000);
@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [workHours, setWorkHours] = useState(() => Number(localStorage.getItem('workHours')) || 8);
   const [resetTime, setResetTime] = useState(() => localStorage.getItem('resetTime') || '09:00');
   const [showSettings, setShowSettings] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const updateTimeAndTasks = useCallback(() => {
     const now = new Date();
@@ -103,12 +104,16 @@ const Dashboard = () => {
     return `${minutes}分鐘`;
   };
 
+  const toggleInfo = () => {
+    setShowInfo(!showInfo);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-sky-200 p-4">
-      <div className="bg-slate-100 rounded-lg shadow-lg p-6 w-full max-w-lg">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-sky-100 p-4">
+      <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">人生儀表板</h1>
-          <button onClick={() => setShowSettings(!showSettings)} className="text-gray-500">
+          <button onClick={() => { setShowSettings(!showSettings); setShowInfo(false); }} className="text-gray-500">
             <Settings size={24} />
           </button>
         </div>
@@ -151,6 +156,21 @@ const Dashboard = () => {
                 className="w-full p-2 border rounded"
               />
             </div>
+            <div className="flex justify-end mt-4">
+              <button onClick={toggleInfo} className="text-gray-500">
+                <Info size={20} />
+              </button>
+            </div>
+            {showInfo && (
+              <div className="mt-4 text-xs text-gray-600">
+                <p>《人生儀表板》為你的人生online加上UI，時刻提醒你打怪練功</p>
+                <p>本程式藉由把你的可用資源以及每天剩餘精力可視化，來提醒你不要一直耍廢</p>
+                <p>本程式不會收集你的資訊，你的資訊都存在本地，也因此無法跨裝置同步資訊</p>
+                <p>更新每月支出後，存款餘額就會開始每秒自動更新</p>
+                <p>若要更新存款餘額，先把每月支出暫時設為0</p>
+                <p>本程式使用Claude 3.5 Sonnet完成，<a href="https://github.com/awei1127/life-dashboard" className="text-blue-500 hover:underline">程式碼</a>可自由變更使用，歡迎高手再創造</p>
+              </div>
+            )}
           </div>
         ) : (
           <>
