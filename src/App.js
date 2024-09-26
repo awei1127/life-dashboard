@@ -162,7 +162,7 @@ const Dashboard = () => {
             </div>
             <div className="mb-4">
               <p className="text-lg font-semibold">Time Left: {formatTime(timeLeft)}</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   className="bg-blue-600 h-2.5 rounded-full"
                   style={{ width: `${Math.min(100, (timeLeft / (workHours * 60 * 60)) * 100)}%` }}
