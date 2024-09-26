@@ -104,8 +104,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-sky-200 p-4">
+      <div className="bg-slate-100 rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">人生儀表板</h1>
           <button onClick={() => setShowSettings(!showSettings)} className="text-gray-500">
