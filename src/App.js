@@ -107,7 +107,7 @@ const Dashboard = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Life Dashboard</h1>
+          <h1 className="text-2xl font-bold">人生儀表板</h1>
           <button onClick={() => setShowSettings(!showSettings)} className="text-gray-500">
             <Settings size={24} />
           </button>
@@ -155,13 +155,13 @@ const Dashboard = () => {
         ) : (
           <>
             <div className="mb-4">
-              <p className="text-lg font-semibold">Level: {level}</p>
+              <p className="text-lg font-semibold">等級: {level}</p>
             </div>
             <div className="mb-4">
-              <p className="text-lg font-semibold">Balance: ${balance.toFixed(2)}</p>
+              <p className="text-lg font-semibold">生命值: ${balance.toFixed(2)}</p>
             </div>
             <div className="mb-4">
-              <p className="text-lg font-semibold">Time Left: {formatTime(timeLeft)}</p>
+              <p className="text-lg font-semibold">精力: {formatTime(timeLeft)}</p>
               <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   className="bg-blue-600 h-2.5 rounded-full"
@@ -170,7 +170,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="mb-4">
-              <h2 className="text-lg font-semibold mb-2">Tasks</h2>
+              <h2 className="text-lg font-semibold mb-2">任務清單</h2>
               <ul>
                 {tasks.map(task => (
                   <li key={task.id} className="flex justify-between items-center mb-2">
@@ -200,7 +200,7 @@ const Dashboard = () => {
                     type="text"
                     value={newTask.name}
                     onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
-                    placeholder="Task name"
+                    placeholder="任務名稱"
                     className="flex-grow mr-2 p-2 border rounded"
                   />
                   <input
@@ -210,7 +210,7 @@ const Dashboard = () => {
                     className="p-2 border rounded"
                   />
                 </div>
-                <button onClick={handleAddTask} className="self-end bg-blue-500 text-white p-2 rounded">Add</button>
+                <button onClick={handleAddTask} className="self-end bg-blue-500 text-white p-2 rounded">新增</button>
               </div>
             </div>
           </>
