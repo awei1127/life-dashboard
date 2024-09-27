@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import './App.css';
 import { X, CheckCircle, Settings, Info } from 'lucide-react';
 
 const LevelUpAnimation = ({ onComplete }) => {
