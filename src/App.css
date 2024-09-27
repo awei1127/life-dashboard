@@ -1,5 +1,13 @@
 .App {
-  text-align: center;
+  
+}
+
+.dashboard-title {
+    text-align: center;
+}
+
+.dashboard-content {
+    text-align: left;
 }
 
 .App-logo {

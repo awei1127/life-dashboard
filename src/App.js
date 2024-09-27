@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './App.css';
 import { X, CheckCircle, Settings, Info } from 'lucide-react';
+import './App.css';
 
 const LevelUpAnimation = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -149,12 +149,12 @@ const Dashboard = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-sky-100 p-4">
       <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">人生儀表板</h1>
+          <h1 className="text-2xl font-bold dashboard-title">人生儀表板</h1>
           <button onClick={() => { setShowSettings(!showSettings); setShowInfo(false); }} className="text-gray-500">
             <Settings size={24} />
           </button>
         </div>
-
+        <div className="dashboard-content">
         {showSettings ? (
           <div className="mb-4 space-y-4">
             <div>
@@ -272,7 +272,8 @@ const Dashboard = () => {
               </div>
             </div>
           </>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
