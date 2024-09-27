@@ -13,6 +13,19 @@ const Dashboard = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
+  useEffect(() => {
+    const lastUpdateTime = localStorage.getItem('lastUpdateTime');
+    if (lastUpdateTime) {
+      const now = new Date().getTime();
+      const timeDiff = now - Number(lastUpdateTime);
+      const daysPassed = timeDiff / (1000 * 60 * 60 * 24);
+      const expensePerDay = monthlyExpense / 30;
+      const offlineExpense = daysPassed * expensePerDay;
+      setBalance(prevBalance => Math.max(0, prevBalance - offlineExpense));
+    }
+    localStorage.setItem('lastUpdateTime', new Date().getTime().toString());
+  }, [monthlyExpense]);
+
   const updateTimeAndTasks = useCallback(() => {
     const now = new Date();
     const [resetHour, resetMinute] = resetTime.split(':').map(Number);
@@ -27,10 +40,6 @@ const Dashboard = () => {
     
     const workEndTime = new Date(resetDate.getTime() + workHours * 60 * 60 * 1000);
 
-    console.log('Current time:', now.toLocaleTimeString());
-    console.log('Reset time:', resetDate.toLocaleTimeString());
-    console.log('Work end time:', workEndTime.toLocaleTimeString());
-
     let newTimeLeft;
     if (now >= resetDate && now < workEndTime) {
       // 在工作時間內
@@ -41,7 +50,6 @@ const Dashboard = () => {
     }
 
     setTimeLeft(newTimeLeft);
-    console.log('Time left updated:', newTimeLeft);
 
     setBalance(prevBalance => {
       const newBalance = Math.max(0, prevBalance - monthlyExpense / (30 * 24 * 60 * 60));
@@ -52,6 +60,7 @@ const Dashboard = () => {
       ...task,
       remainingTime: Math.max(0, new Date(task.deadline) - now)
     })));
+    localStorage.setItem('lastUpdateTime', now.getTime().toString());
   }, [resetTime, workHours, monthlyExpense]);
 
   useEffect(() => {
