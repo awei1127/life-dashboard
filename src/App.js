@@ -1,6 +1,27 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { X, CheckCircle, Settings, Info } from 'lucide-react';
 
+const LevelUpAnimation = ({ onComplete }) => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      onComplete();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
+      <div className="text-2xl font-bold text-green-500 animate-level-up">+1</div>
+    </div>
+  );
+};
+
 const Dashboard = () => {
   const [balance, setBalance] = useState(() => Number(localStorage.getItem('balance')) || 10000);
   const [level, setLevel] = useState(() => Number(localStorage.getItem('level')) || 1);
@@ -12,6 +33,7 @@ const Dashboard = () => {
   const [resetTime, setResetTime] = useState(() => localStorage.getItem('resetTime') || '09:00');
   const [showSettings, setShowSettings] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [showLevelUpAnimation, setShowLevelUpAnimation] = useState(false);
 
   useEffect(() => {
     const lastUpdateTime = localStorage.getItem('lastUpdateTime');
@@ -90,6 +112,11 @@ const Dashboard = () => {
   const handleCompleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
     setLevel(prevLevel => prevLevel + 1);
+    setShowLevelUpAnimation(true);
+  };
+
+  const handleAnimationComplete = () => {
+    setShowLevelUpAnimation(false);
   };
 
   const handleDeleteTask = (id) => {
@@ -119,7 +146,8 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-sky-100 p-4">
-      <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg">
+      <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg relative">
+        {showLevelUpAnimation && <LevelUpAnimation onComplete={handleAnimationComplete} />}
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">人生儀表板</h1>
           <button onClick={() => { setShowSettings(!showSettings); setShowInfo(false); }} className="text-gray-500">
@@ -183,7 +211,7 @@ const Dashboard = () => {
           </div>
         ) : (
           <>
-            <div className="mb-4">
+              <div className="mb-4 relative">
               <p className="text-lg font-semibold">等級: {level}</p>
             </div>
             <div className="mb-4">

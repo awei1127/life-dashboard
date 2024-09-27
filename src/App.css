@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes levelUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.animate-level-up {
+    animation: levelUp 1s ease-out forwards;
+}
