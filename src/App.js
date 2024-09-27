@@ -16,8 +16,8 @@ const LevelUpAnimation = ({ onComplete }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
-      <div className="text-2xl font-bold text-green-500 animate-level-up">+1</div>
+    <div className="absolute left-full ml-2 animate-level-up">
+      <span className="text-2xl font-bold text-green-500">+1</span>
     </div>
   );
 };
@@ -146,8 +146,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-sky-100 p-4">
-      <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg relative">
-        {showLevelUpAnimation && <LevelUpAnimation onComplete={handleAnimationComplete} />}
+      <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">人生儀表板</h1>
           <button onClick={() => { setShowSettings(!showSettings); setShowInfo(false); }} className="text-gray-500">
@@ -212,7 +211,8 @@ const Dashboard = () => {
         ) : (
           <>
               <div className="mb-4 relative">
-              <p className="text-lg font-semibold">等級: {level}</p>
+                <p className="text-lg font-semibold">等級: {level}</p>
+                {showLevelUpAnimation && <LevelUpAnimation onComplete={handleAnimationComplete} />}
             </div>
             <div className="mb-4">
               <p className="text-lg font-semibold">生命值: ${balance.toFixed(2)}</p>
