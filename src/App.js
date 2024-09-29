@@ -10,7 +10,7 @@ const LevelUpAnimation = ({ onComplete }) => {
     const timer = setTimeout(() => {
       setIsVisible(false);
       onComplete();
-    }, 1500);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [onComplete]);

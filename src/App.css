@@ -58,7 +58,7 @@
 }
 
 .animate-level-up {
-    animation: levelUp 1s ease-out forwards;
+    animation: levelUp 2s ease-out forwards;
     position: absolute;
     top: 0;
     left: 50%;
