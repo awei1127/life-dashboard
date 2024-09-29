@@ -19,7 +19,7 @@ const LevelUpAnimation = ({ onComplete }) => {
 
   return (
     <div className="absolute left-full ml-2 animate-level-up">
-      <span className="text-2xl font-bold text-green-500">+1</span>
+      <span className="text-4xl font-bold text-green-500">+1</span>
     </div>
   );
 };
@@ -127,6 +127,23 @@ const Dashboard = () => {
     setShowLevelUpAnimation(false);
   };
 
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+    setShowInfo(false);
+    if (!showSettings) {
+      // 當切換到設置頁面時，重置動畫狀態
+      setShowLevelUpAnimation(false);
+      setIsConfettiActive(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showSettings) {
+      setShowLevelUpAnimation(false);
+      setIsConfettiActive(false);
+    }
+  }, [showSettings]);
+
   const handleDeleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
@@ -168,7 +185,7 @@ const Dashboard = () => {
       <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold dashboard-title">人生儀表板</h1>
-          <button onClick={() => { setShowSettings(!showSettings); setShowInfo(false); }} className="text-gray-500">
+          <button onClick={toggleSettings} className="text-gray-500">
             <Settings size={24} />
           </button>
         </div>
