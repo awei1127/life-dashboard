@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { X, CheckCircle, Settings, Info } from 'lucide-react';
+import Confetti from 'react-confetti';
 import './App.css';
 
 const LevelUpAnimation = ({ onComplete }) => {
@@ -9,7 +10,7 @@ const LevelUpAnimation = ({ onComplete }) => {
     const timer = setTimeout(() => {
       setIsVisible(false);
       onComplete();
-    }, 1000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -35,6 +36,7 @@ const Dashboard = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [showLevelUpAnimation, setShowLevelUpAnimation] = useState(false);
+  const [isConfettiActive, setIsConfettiActive] = useState(false);
 
   useEffect(() => {
     const lastUpdateTime = localStorage.getItem('lastUpdateTime');
@@ -114,7 +116,12 @@ const Dashboard = () => {
     setTasks(tasks.filter(task => task.id !== id));
     setLevel(prevLevel => prevLevel + 1);
     setShowLevelUpAnimation(true);
+    setIsConfettiActive(true);
   };
+
+  const handleConfettiComplete = useCallback(() => {
+    setIsConfettiActive(false);
+  }, []);
 
   const handleAnimationComplete = () => {
     setShowLevelUpAnimation(false);
@@ -147,6 +154,17 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-sky-100 p-4">
+      {isConfettiActive && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={500}
+          gravity={0.04}
+          tweenDuration={6000}
+          onConfettiComplete={handleConfettiComplete}
+        />
+      )}
       <div className="bg-slate-50 rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold dashboard-title">人生儀表板</h1>
