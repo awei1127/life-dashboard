@@ -249,7 +249,10 @@ const Dashboard = () => {
               <div className="mb-4 relative">
                 <p className="text-lg font-semibold">等級: {level}</p>
                 {showLevelUpAnimation && <LevelUpAnimation onComplete={handleAnimationComplete} />}
-            </div>
+                </div>
+                <div className="mb-4">
+                  <p className="text-lg font-semibold">世界等級: {level+3}</p>
+                </div>
             <div className="mb-4">
               <p className="text-lg font-semibold">生命值: ${balance.toFixed(2)}</p>
             </div>
